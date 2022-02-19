@@ -1,0 +1,45 @@
+server:
+  address: 0.0.0.0
+  port: 9990
+
+spring:
+  application:
+      name: training
+  main:
+    banner-mode: off
+
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java,src/main/resources
+      exclude: WEB-INF/**,static/**,public/**
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/management
+    username: management
+    password: management
+
+
+## metrics
+management:
+#  server:
+#    port: 8808
+#    address: "127.0.0.1"
+  endpoints:
+#    shutdown:
+#      enabled: true
+    web:
+#      base-path: /manage
+      exposure:
+        include: '*'
+#        exclude: beans,trace
+  endpoint:
+    beans:
+      cache:
+        time-to-live: "10s"
+    health:
+      show-details: ALWAYS
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
